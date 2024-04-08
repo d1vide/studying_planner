@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Plan</h1>
+    {% for plan in plan_list %}
+    <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> <a href="{% url 'plan:plandetail' plan.id %}">{{ plan.title }} </a> </h5>
+            <p class="card-text">{{ plan.category__title }}</p>
+            <p class="card-text"><small class="text-muted">{{ plan.priority__title }}</small></p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+{% endblock %}
