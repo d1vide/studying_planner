@@ -1,17 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.db import models
 
-# class Book(models.Model):
-#     pass
-
-# class Course(models.Model):
-#     pass
-
-# class Topic(models.Model):
-#     pass
-
-# class Task(models.Model):
-#     pass
 class Priority(models.Model):
     priority = models.SmallIntegerField(primary_key=True, verbose_name='Приоритет')
     title = models.CharField(max_length=128, verbose_name='Название')
@@ -26,7 +15,6 @@ class Priority(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=128, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание', blank=True)
     slug = models.SlugField(unique=True, verbose_name='Идентификатор')
 
     class Meta:
@@ -55,6 +43,7 @@ class Plan(models.Model):
     time_required = models.FloatField(validators=[MinValueValidator(0.0)],
                                       verbose_name='Примерное время на задачу (в часах)',
                                       blank=True, null=True)
+    description = models.TextField(verbose_name='Описание', blank=True)
     # progress = models.IntegerField(validators=[MinValueValidator(0),
     #                                            MaxValueValidator(100)],
     #                                verbose_name='Прогресс',
