@@ -1,6 +1,7 @@
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.db import models
 
+
 class Priority(models.Model):
     priority = models.SmallIntegerField(primary_key=True, verbose_name='Приоритет')
     title = models.CharField(max_length=128, verbose_name='Название')

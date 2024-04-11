@@ -23,11 +23,25 @@ def plan_detail(request, pk):
     return render(request, template_name, context)
 
 
-def plan_create(request):
+def plan_create(request, pk=None):
     template_name = 'plan/plan_create.html'
-    form = PlanForm(request.POST or None)
+    instance = None
+    if pk:
+        instance = get_object_or_404(Plan, pk=pk)
+    form = PlanForm(request.POST or None, instance=instance)
     context = {'form': form}
     if form.is_valid():
         form.save()
+        return redirect('plan:planlist')
+    return render(request, template_name, context)
+
+
+def plan_delete(request, pk):
+    template_name = 'plan/plan_create.html'
+    instance = get_object_or_404(Plan, pk=pk)
+    form = PlanForm(instance=instance)
+    context = {'form': form}
+    if request.POST:
+        instance.delete()
         return redirect('plan:planlist')
     return render(request, template_name, context)

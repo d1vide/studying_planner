@@ -2,18 +2,39 @@
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 
-{% block content %}
+{% block title %}
+  {% if '/edit/' in request.path %}
+    Редактирование плана
+  {% elif "/delete/" in request.path %}
+    Удаление плана
+  {% else %}
+    Добавление плана
+  {% endif %}
+{% endblock %}
 
+{% block content %}
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Create New Plan</h1>
     <div class="card mx-auto col-6">
         <div class="card-header">
-            Создание плана
+            {% if "/delete/" in request.path %}
+                Уверены что хотите удалить план?
+            {% else %}
+                Заполните форму
+            {% endif %}
+            
         </div>
         <form method="post" class="mt-3">
             {% csrf_token %}
             <div class="col col-md-11 mx-auto">
-                {% bootstrap_form form %}
+                
+                {% if "/delete/" in request.path %}
+                    <h3>{{ form.instance.category }} - {{ form.instance.title }}</h3>
+                    Приоритет - {{ form.instance.priority.title }}
+                    <br>
+                    <br>
+                {% else %}
+                    {% bootstrap_form form %}
+                {% endif %}
             </div>
             <div class="text-center mb-3">
                 {% bootstrap_button button_type="submit" content="Отправить" button_class="btn-success" %}
