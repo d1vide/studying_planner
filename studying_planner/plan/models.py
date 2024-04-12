@@ -28,14 +28,6 @@ class Category(models.Model):
 
 class Plan(models.Model):
 
-    # PRIORITY_CHOICES = (
-    #     (0, 'Срочно пора заняться'),
-    #     (1, 'Сразу после важных дел'),
-    #     (2, 'Пора бы начать'),
-    #     (3, 'Когда-нибудь потом'),
-    #     (4, 'В другой жизни'),
-    # )
-
     title = models.CharField(max_length=128, verbose_name='Название')
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
                                  verbose_name='Категория')
@@ -45,6 +37,8 @@ class Plan(models.Model):
                                       verbose_name='Примерное время на задачу (в часах)',
                                       blank=True, null=True)
     description = models.TextField(verbose_name='Описание', blank=True)
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
+    deadline = models.DateField(verbose_name='Дедлайн', blank=True, null=True)
     # progress = models.IntegerField(validators=[MinValueValidator(0),
     #                                            MaxValueValidator(100)],
     #                                verbose_name='Прогресс',
@@ -54,6 +48,7 @@ class Plan(models.Model):
     class Meta:
         verbose_name = 'план'
         verbose_name_plural = 'Планы'
+        ordering = ('created_at', )
 
     def __str__(self):
         return self.title

@@ -32,7 +32,7 @@ def plan_create(request, pk=None):
     context = {'form': form}
     if form.is_valid():
         form.save()
-        return redirect('plan:planlist')
+        return redirect('plan:list')
     return render(request, template_name, context)
 
 
@@ -43,5 +43,5 @@ def plan_delete(request, pk):
     context = {'form': form}
     if request.POST:
         instance.delete()
-        return redirect('plan:planlist')
+        return redirect('plan:list')
     return render(request, template_name, context)

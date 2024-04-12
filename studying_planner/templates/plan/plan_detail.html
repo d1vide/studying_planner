@@ -8,11 +8,12 @@
       <div class="card-body">
         <h5 class="card-title">{{ plan_detail.title }}</h5>
         <p class="card-text">{{ plan_detail.category }}</p>
-        <p class="card-text"><strong>Deadline:</strong> 2024-04-10</p>
+        <p class="card-text">Created at: {{ plan_detail.created_at }}</p>
+        <p class="card-text"><strong>Deadline:</strong> {{ plan_detail.deadline }}</p>
         <p class="card-text"><strong>Status:</strong> <span class="badge bg-info">In Progress</span></p>
         <div class="d-flex justify-content-end">
-          <a href="{% url 'plan:planedit' plan_detail.id %}" class="btn btn-outline-warning me-3">Изменить</a>
-          <a href="{% url 'plan:plandelete' plan_detail.id %}" class="btn btn-outline-danger">Удалить</a>
+          <a href="{% url 'plan:edit' plan_detail.id %}" class="btn btn-outline-warning me-3">Изменить</a>
+          <a href="{% url 'plan:delete' plan_detail.id %}" class="btn btn-outline-danger">Удалить</a>
         </div>
       </div>
     </div>

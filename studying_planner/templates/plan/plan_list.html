@@ -8,7 +8,7 @@
           <div class="col-md-6 mb-3">
             <div class="card task-card">
               <div class="card-body">
-                <a href="{% url 'plan:plandetail' plan.id %}"><h5 class="card-title">{{ plan.title }} </h5></a>
+                <a href="{% url 'plan:detail' plan.id %}"><h5 class="card-title">{{ plan.title }} </h5></a>
                 <p class="card-text">{{ plan.category__title }}</p>
                 <p class="card-text"><strong>{{ plan.priority__title }}</strong></p>
                 <span class="badge bg-info">In Progress</span>
