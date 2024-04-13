@@ -9,6 +9,7 @@ class Priority(models.Model):
     class Meta:
         verbose_name = 'приоритет'
         verbose_name_plural = 'Приоритеты'
+        ordering = ('priority', )
 
     def __str__(self):
         return f'{self.priority} - {self.title}'
@@ -39,10 +40,11 @@ class Plan(models.Model):
     description = models.TextField(verbose_name='Описание', blank=True)
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     deadline = models.DateField(verbose_name='Дедлайн', blank=True, null=True)
-    # progress = models.IntegerField(validators=[MinValueValidator(0),
-    #                                            MaxValueValidator(100)],
-    #                                verbose_name='Прогресс',
-    #                                blank=True)
+    task_now = models.BooleanField(verbose_name='Сейчас задача', default=False)
+    progress = models.IntegerField(validators=[MinValueValidator(0),
+                                               MaxValueValidator(100)],
+                                   verbose_name='Прогресс',
+                                   blank=True, default=0)
     # file = models.FileField()
 
     class Meta:
@@ -52,3 +54,11 @@ class Plan(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# class Task(models.Model):
+#     title = models.CharField(max_length=128, verbose_name='Название')
+#     category = models.ForeignKey(Category, on_delete=models.CASCADE,
+#                                  verbose_name='Категория')
+    
+#     deadline = models.DateField(verbose_name='Дедлайн', blank=True, null=True)
