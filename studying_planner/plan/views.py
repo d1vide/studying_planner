@@ -11,14 +11,14 @@ def index(request):
 
 def plan_list(request):
     template_name = 'plan/plan_list.html'
-    plan_list = Plan.objects.values('id', 'title', 'category__title', 'priority__title').filter(task_now=False)
+    plan_list = Plan.objects.values('id', 'title', 'category__title', 'priority__title').filter(is_task=False)
     context = {'plan_list': plan_list}
     return render(request, template_name, context)
 
 
 def plan_detail(request, pk):
     template_name = 'plan/plan_detail.html'
-    plan = get_object_or_404(Plan, pk=pk)
+    plan = get_object_or_404(Plan, pk=pk, is_task=False)
     context = {'plan_detail': plan}
     return render(request, template_name, context)
 
@@ -49,14 +49,35 @@ def plan_delete(request, pk):
 
 def task_list(request):
     template_name = 'plan/task_list.html'
-    task_list = Plan.objects.values('id', 'title', 'category__title', 'priority__title', 'task_now').filter(task_now=True)
+    task_list = Plan.objects.values('id', 'title', 'category__title', 'priority__title', 'is_task').filter(is_task=True)
     context = {'task_list': task_list}
     return render(request, template_name, context)
+
+
+def task_detail(request, pk):
+    pass
 
 
 def do_task(request, pk):
     if request.POST:
         instance = get_object_or_404(Plan, pk=pk)
-        instance.task_now = True
+        instance.is_task = True
+        instance.save()
+        return redirect('plan:tasklist')
+
+
+def finish_task_now(request, pk):
+    if request.POST:
+        instance = get_object_or_404(Plan, pk=pk)
+        instance.is_task = False
+        instance.is_over = True
+        instance.save()
+        return redirect('plan:tasklist')
+
+
+def finish_task_later(request, pk):
+    if request.POST:
+        instance = get_object_or_404(Plan, pk=pk)
+        instance.is_task = False
         instance.save()
         return redirect('plan:list')

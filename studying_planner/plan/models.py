@@ -40,7 +40,8 @@ class Plan(models.Model):
     description = models.TextField(verbose_name='Описание', blank=True)
     created_at = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     deadline = models.DateField(verbose_name='Дедлайн', blank=True, null=True)
-    task_now = models.BooleanField(verbose_name='Сейчас задача', default=False)
+    is_task = models.BooleanField(verbose_name='Сейчас задача', default=False)
+    is_over = models.BooleanField(verbose_name='Задача закончена', default=False)
     progress = models.IntegerField(validators=[MinValueValidator(0),
                                                MaxValueValidator(100)],
                                    verbose_name='Прогресс',
